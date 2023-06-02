@@ -98,12 +98,20 @@ export default function Footer() {
               Impressum
             </Title>
             <div className="flex flex-1 flex-col justify-between gap-8">
-              <Link href="https://www.stadt-muenster.de/impressum">
+              <Link
+                href="https://www.stadt-muenster.de/impressum"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <Title as="h5" className="underline" variant={'primary'}>
                   Impressum
                 </Title>
               </Link>
-              <Link href="https://www.stadt-muenster.de/datenschutz">
+              <Link
+                href="https://www.stadt-muenster.de/datenschutz"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <Title as="h5" className="underline" variant={'primary'}>
                   Datenschutz
                 </Title>
@@ -118,12 +126,20 @@ export default function Footer() {
           </div>
         </div>
         <div className="hidden justify-between sm:flex 2xl:hidden">
-          <Link href="https://www.stadt-muenster.de/impressum">
+          <Link
+            href="https://www.stadt-muenster.de/impressum"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             <Title as="h5" className="underline" variant={'primary'}>
               Impressum
             </Title>
           </Link>
-          <Link href="https://www.stadt-muenster.de/datenschutz">
+          <Link
+            href="https://www.stadt-muenster.de/datenschutz"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             <Title as="h5" className="underline" variant={'primary'}>
               Datenschutz
             </Title>
