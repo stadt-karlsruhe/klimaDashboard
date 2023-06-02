@@ -47,7 +47,7 @@ export default function TileFooter({
         />
         <Share className="h-6 cursor-pointer stroke-2" onClick={onShareClick} />
         {dataURL && (
-          <Link href={dataURL} target="_blank">
+          <Link href={dataURL} rel="noopener noreferrer" target="_blank">
             <Download className="h-6 stroke-2" />
           </Link>
         )}
