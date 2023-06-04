@@ -82,6 +82,7 @@ export default async function TileFactory({
 
     // ---- BUILDINGS ----
     case 'building-ecoProfit':
+      // @ts-expect-error Server Component
       return <EcoProfitTile />
     case 'building-energyConsumption':
       // @ts-expect-error Server Component
@@ -89,8 +90,10 @@ export default async function TileFactory({
 
     // ---- ENERGY ----
     case 'energy-PV':
+      // @ts-expect-error Server Component
       return <PhotovoltTile />
     case 'energy-wind':
+      // @ts-expect-error Server Component
       return <WindEnergyTile />
     case 'energy-energietraeger':
       // @ts-expect-error Server Component

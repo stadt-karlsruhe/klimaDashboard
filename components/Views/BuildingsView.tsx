@@ -9,6 +9,7 @@ export default function BuildingsView() {
     // @ts-expect-error Server Component
     <BaseView type="building">
       <Columns>
+        {/* @ts-expect-error Server Component */}
         <EcoProfitTile />
         {/* @ts-expect-error Server Component */}
         <RenovationTile />

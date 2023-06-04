@@ -5,6 +5,7 @@ export default function Climate() {
   return (
     <>
       <Columns>
+        {/* @ts-expect-error Server Component */}
         <EcoProfitTile />
       </Columns>
     </>
