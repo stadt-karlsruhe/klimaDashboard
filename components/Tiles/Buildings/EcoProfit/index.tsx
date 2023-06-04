@@ -1,10 +1,10 @@
 import BuildingTile from '../BuildingsTile'
 
 import EcoProfitData from '@/assets/data/ecoprofit.json'
-import { format } from 'date-fns'
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import { Spacer } from '@/components/Elements/Spacer'
+import { format } from 'date-fns'
 
 interface IEcoProfitData {
   companiesTotal: number
@@ -12,9 +12,12 @@ interface IEcoProfitData {
   savingsCO2: number
   companiesStartupConsulting: number
   updatedAt: string
+  dataRetrieval: string
 }
 
-export default function EcoProfitTile() {
+// This gets called on every request
+export async function getServerSideProps() {
+  // Fetch data from external API
   const {
     companiesTotal,
     savingsEuro,
@@ -23,9 +26,39 @@ export default function EcoProfitTile() {
     updatedAt,
   } = EcoProfitData as IEcoProfitData
 
+  // Pass data to the page via props
+  return {
+    props: {
+      companiesTotal,
+      savingsEuro,
+      savingsCO2,
+      companiesStartupConsulting,
+      updatedAt,
+      dataRetrieval: format(new Date(updatedAt), 'dd.MM.yyyy'),
+    },
+  }
+}
+
+export default function EcoProfitTile({
+  companiesTotal,
+  savingsEuro,
+  savingsCO2,
+  companiesStartupConsulting,
+  dataRetrieval,
+}: IEcoProfitData) {
+  // const {
+  //   companiesTotal,
+  //   savingsEuro,
+  //   savingsCO2,
+  //   companiesStartupConsulting,
+  //   updatedAt,
+  // } = EcoProfitData as IEcoProfitData
+
+  // const dataRetrieval = useFormattedDate(updatedAt)
+
   return (
     <BuildingTile
-      dataRetrieval={format(new Date(updatedAt), 'dd.MM.yyyy')}
+      dataRetrieval={dataRetrieval}
       dataSource="Stadt Münster"
       embedId={'building-ecoProfit'}
     >

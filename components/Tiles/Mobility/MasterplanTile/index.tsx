@@ -1,14 +1,30 @@
 import Title from '@/components/Elements/Title'
 // @ts-ignore
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import { format } from 'date-fns'
 import MobilityTile from '../MobilityTile'
 import { Masterplan } from '@/components/Icons'
+import { format } from 'date-fns'
 
-export default function MasterplanTile() {
+interface IMasterplanTileProps {
+  dataRetrieval: string
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  // Pass data to the page via props
+  return {
+    props: {
+      dataRetrieval: format(new Date('2023-05-22T00:00:00.000Z'), 'dd.MM.yyyy'),
+    },
+  }
+}
+
+export default function MasterplanTile({
+  dataRetrieval,
+}: IMasterplanTileProps) {
   return (
     <MobilityTile
-      dataRetrieval={format(new Date('2023-05-22T00:00:00.000Z'), 'dd.MM.yyyy')}
+      dataRetrieval={dataRetrieval}
       dataSource={'Stadt Münster'}
       embedId="mobility-masterplan"
       title={<>Unser Masterplan</>}

@@ -13,12 +13,26 @@ import { format } from 'date-fns'
 //   Nettonennleistung: number
 // }
 
-export default function LanternsTile() {
+interface ILanternsTileProps {
+  dataRetrieval: string
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  // Pass data to the page via props
+  return {
+    props: {
+      dataRetrieval: format(new Date(), 'dd.MM.yyyy'),
+    },
+  }
+}
+
+export default function LanternsTile({ dataRetrieval }: ILanternsTileProps) {
   // const [data] = PVData as PVDataType[]
 
   return (
     <EnergyTile
-      dataRetrieval={format(new Date('2023-05-22T00:00:00.000Z'), 'dd.MM.yyyy')}
+      dataRetrieval={dataRetrieval}
       dataSource={'Stadt Münster - Amt für Immobilienmanagement'}
       embedId="energy-lanterns"
       title={

@@ -14,12 +14,27 @@ interface PVDataType {
   Nettonennleistung: number
 }
 
-export default function PhotovoltTile() {
+interface IPhotovoltTileProps {
+  dataRetrieval: string
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  const [data] = PVData as PVDataType[]
+  // Pass data to the page via props
+  return {
+    props: {
+      dataRetrieval: format(new Date(data.ZEIT), 'dd.MM.yyyy'),
+    },
+  }
+}
+
+export default function PhotovoltTile({ dataRetrieval }: IPhotovoltTileProps) {
   const [data] = PVData as PVDataType[]
 
   return (
     <EnergyTile
-      dataRetrieval={format(new Date(data.ZEIT), 'dd.MM.yyyy')}
+      dataRetrieval={dataRetrieval}
       dataSource={'Marktstammdatenregister'}
       embedId="energy-PV"
       live

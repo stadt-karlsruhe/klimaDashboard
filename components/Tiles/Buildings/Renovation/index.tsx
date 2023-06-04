@@ -4,8 +4,8 @@ import BuildingsTile from '../BuildingsTile'
 // @ts-ignore
 // import WindData from '@/assets/data/bestand-windanlagen.csv'
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import { format } from 'date-fns'
 import getTileData from '@/lib/api/getTileData'
+import { format } from 'date-fns'
 
 // interface WindDataType {
 //   ZEIT: string
@@ -15,14 +15,30 @@ import getTileData from '@/lib/api/getTileData'
 //   Nettonennleistung: number
 // }
 
-export default async function RenovationTile() {
+interface IRenovationTileProps {
+  dataRetrieval: string
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  // Pass data to the page via props
+  return {
+    props: {
+      dataRetrieval: format(new Date(), 'dd.MM.yyyy'),
+    },
+  }
+}
+
+export default async function RenovationTile({
+  dataRetrieval,
+}: IRenovationTileProps) {
   // const [data] = WindData as WindDataType[]
   const data = await getTileData('building-renovation')
   const infoText = data?.info ?? ''
 
   return (
     <BuildingsTile
-      dataRetrieval={format(new Date(), 'dd.MM.yyyy')}
+      dataRetrieval={dataRetrieval}
       dataSource={'Stadt Münster'}
       embedId="building-renovation"
       title={

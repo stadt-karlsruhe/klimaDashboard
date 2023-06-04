@@ -14,12 +14,29 @@ interface WindDataType {
   Nettonennleistung: number
 }
 
-export default function WindEnergyTile() {
+interface IWindEnergyTileProps {
+  dataRetrieval: string
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  const [data] = WindData as WindDataType[]
+  // Pass data to the page via props
+  return {
+    props: {
+      dataRetrieval: format(new Date(data.ZEIT), 'dd.MM.yyyy'),
+    },
+  }
+}
+
+export default function WindEnergyTile({
+  dataRetrieval,
+}: IWindEnergyTileProps) {
   const [data] = WindData as WindDataType[]
 
   return (
     <EnergyTile
-      dataRetrieval={format(new Date(data.ZEIT), 'dd.MM.yyyy')}
+      dataRetrieval={dataRetrieval}
       dataSource={'Marktstammdatenregister'}
       embedId="energy-wind"
       live

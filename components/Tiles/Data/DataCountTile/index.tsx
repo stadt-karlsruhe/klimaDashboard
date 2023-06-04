@@ -2,14 +2,28 @@ import Title from '@/components/Elements/Title'
 
 // @ts-ignore
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import { format } from 'date-fns'
 import DataTile from '../DataTile'
 import { Daten } from '@/components/Icons'
+import { format } from 'date-fns'
 
-export default function DataCountTile() {
+interface IDataCountTileProps {
+  dataRetrieval: string
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  // Pass data to the page via props
+  return {
+    props: {
+      dataRetrieval: format(new Date(), 'dd.MM.yyyy'),
+    },
+  }
+}
+
+export default function DataCountTile({ dataRetrieval }: IDataCountTileProps) {
   return (
     <DataTile
-      dataRetrieval={format(new Date(), 'dd.MM.yyyy')}
+      dataRetrieval={dataRetrieval}
       dataSource={'Stadt Münster'}
       embedId={'climate-data'}
       title={
