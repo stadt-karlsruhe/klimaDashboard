@@ -1,4 +1,8 @@
+import ProgressBar from '@/components/Charts/Progress/ProgressBar'
+import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
+import { PvIcon } from '@/components/Icons'
+import Slider from '@/components/Inputs/Slider'
 import EnergyTile from '../EnergyTile'
 
 // @ts-ignore

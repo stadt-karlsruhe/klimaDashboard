@@ -1,4 +1,8 @@
+import ProgressBar from '@/components/Charts/Progress/ProgressBar'
+import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
+import { WindEnergyIcon } from '@/components/Icons'
+import Slider from '@/components/Inputs/Slider'
 import EnergyTile from '../EnergyTile'
 
 // @ts-ignore
@@ -37,7 +41,7 @@ export default function WindEnergyTile() {
         <Title as={'subtitle'}>
           haben die Münsteraner*innen bereits mit{' '}
           <span className="text-energy">
-            {/* <AnimatedNumber>{data.AnzahlAnlagen}</AnimatedNumber>{' '} */ }
+            {/* <AnimatedNumber>{data.AnzahlAnlagen}</AnimatedNumber>{' '} */}
             32
             Windkraftanlagen
           </span>{' '}

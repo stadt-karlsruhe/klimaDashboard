@@ -16,10 +16,9 @@ export default function PVAnlagenTile() {
 
   return (
     <EnergyTile
-      dataRetrieval={format(new Date(), 'dd.MM.yyyy')}
-      dataSource={'Marktstammdatenregister'}
+      dataRetrieval="12.04.2023"
+      dataSource={'Stadt Münster'}
       embedId="energy-PVAnlagen"
-      live
       title={
         <>
           <AnimatedNumber className="font-medium">
