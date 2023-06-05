@@ -4,7 +4,8 @@
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '@/tailwind.config'
 // @ts-ignore
-import ModalSplitData from '@/assets/data/verkehrsmittelwahl-zeitreihe.csv'
+// import ModalSplitData from '@/assets/data/verkehrsmittelwahl-zeitreihe.csv'
+import ModalSplitData from '@/assets/data/modal-split.csv'
 import { ReactECharts } from '@/components/Charts/ReactECharts'
 import Slider from '@/components/Inputs/Slider'
 import { MuensterBackground } from '@/components/Icons/'
@@ -13,17 +14,51 @@ import { useWindowSize } from 'react-use'
 import Carousel from '@/components/Elements/Carousel'
 import Title from '@/components/Elements/Title'
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
+import ToggleGroup from '@/components/Inputs/ToggleGroup'
 
 const { theme } = resolveConfig(tailwindConfig)
 
 interface IModalSplitData {
   ZEIT: number
-  'Verkehrsmittelwahl Fahrrad in %': number
-  'Verkehrsmittelwahl Fuß in %': number
-  'Verkehrsmittelwahl Kfz in %': number
-  'Verkehrsmittelwahl sonstige in %': number
-  'Verkehrsmittelwahl ÖV in %': number
+  Absolut: number
+  'Modal Split V.leistung - Fahrrad': number
+  'Modal Split V.leistung - Fuß': number
+  'Modal Split V.leistung - Kfz': number
+  'Modal Split V.leistung - sonstige': number
+  'Modal Split V.leistung - ÖV': number
+  'Verkehrsmittelwahl Fahrrad': number
+  'Verkehrsmittelwahl Fuß': number
+  'Verkehrsmittelwahl Kfz': number
+  'Verkehrsmittelwahl sonstige': number
+  'Verkehrsmittelwahl ÖV': number
   'Wege/Tag': number
+}
+
+function Toggle({ onChange }: { onChange: (_val: string) => void }) {
+  return (
+    <ToggleGroup
+      items={[
+        {
+          element: (
+            <Title as="h5" className="2xl:w-max">
+              Verkehrsleistung in km
+            </Title>
+          ),
+          value: 'verkehrsleistung',
+        },
+        {
+          element: (
+            <Title as="h5" className="2xl:w-max">
+              Anzahl Wege
+            </Title>
+          ),
+          value: 'wege',
+        },
+      ]}
+      onChange={onChange}
+      variant={'mobility'}
+    />
+  )
 }
 
 const icons = {
@@ -46,16 +81,19 @@ const colors = {
 }
 
 const nameColumnMapping = {
-  KFZ: 'Verkehrsmittelwahl Kfz in %',
-  ÖPNV: 'Verkehrsmittelwahl ÖV in %',
-  Fahrrad: 'Verkehrsmittelwahl Fahrrad in %',
-  Fuß: 'Verkehrsmittelwahl Fuß in %',
+  KFZ: 'Modal Split V.leistung - Kfz' | 'Verkehrsmittelwahl Kfz',
+  ÖPNV: 'Modal Split V.leistung - ÖV' | 'Verkehrsmittelwahl ÖV',
+  Fahrrad: 'Modal Split V.leistung - Fahrrad' | 'Verkehrsmittelwahl Fahrrad',
+  Fuß: 'Modal Split V.leistung - Fuß' | 'Verkehrsmittelwahl Fuß',
 }
 
 const data: IModalSplitData[] = ModalSplitData
 
 export default function ModalSplitChart() {
   const [yearIndex, setYearIndex] = useState<number>(0)
+  const [mode, setMode] = useState<'verkehrsmittelwahl' | 'verkehrsleistung'>(
+    'verkehrsmittelwahl',
+  )
 
   const { width } = useWindowSize()
 
@@ -105,7 +143,11 @@ export default function ModalSplitChart() {
   return (
     <>
       <div className="relative flex h-96 flex-1 flex-col rounded bg-white p-2 md:h-[32rem]">
+        <div className="absolute -top-4 left-0 z-10 w-full md:-top-6 md:w-auto">
+          <Toggle onChange={val => setMode(val as typeof mode)} />
+        </div>
         <div className="absolute left-0 top-0 flex h-full w-full">
+          <div className="flex items-center justify-center">Your Text Here</div>
           <MuensterBackground className="h-full w-full flex-1" />
           <div className="sm:w-14"></div>
         </div>
@@ -127,13 +169,24 @@ export default function ModalSplitChart() {
                       },
                     },
                     data: [
-                      getSeries(yearData['Verkehrsmittelwahl Kfz in %'], 'KFZ'),
-                      getSeries(yearData['Verkehrsmittelwahl ÖV in %'], 'ÖPNV'),
                       getSeries(
-                        yearData['Verkehrsmittelwahl Fahrrad in %'],
+                        mode === 'verkehrsleistung'
+                          ? yearData['Modal Split V.leistung - Kfz']
+                          : yearData['Verkehrsmittelwahl Kfz'],
+                        'KFZ',
+                      ),
+                      getSeries(
+                        yearData['Modal Split V.leistung - ÖV'],
+                        'ÖPNV',
+                      ),
+                      getSeries(
+                        yearData['Modal Split V.leistung - Fahrrad'],
                         'Fahrrad',
                       ),
-                      getSeries(yearData['Verkehrsmittelwahl Fuß in %'], 'Fuß'),
+                      getSeries(
+                        yearData['Modal Split V.leistung - Fuß'],
+                        'Fuß',
+                      ),
                     ],
                     color: [
                       //@ts-ignore
