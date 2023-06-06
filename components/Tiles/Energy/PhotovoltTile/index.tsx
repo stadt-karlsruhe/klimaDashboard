@@ -62,7 +62,7 @@ export default function PhotovoltTile() {
             </div>
             <Spacer size={'sm'} />
             <ProgressBar
-              progress={data.Bruttoleistung / 2500}
+              progress={data.Bruttoleistung / 2500000}
               variant="energy"
             />
             {/*
