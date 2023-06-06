@@ -102,7 +102,7 @@ const nameColumnMapping = {
 const data: IModalSplitData[] = ModalSplitData
 
 export default function ModalSplitChart() {
-  const [yearIndex, setYearIndex] = useState<number>(0)
+  const [yearIndex, setYearIndex] = useState<number>(1)
   const [mode, setMode] = useState<'verkehrsmittelwahl' | 'verkehrsleistung'>(
     'verkehrsleistung',
   )
