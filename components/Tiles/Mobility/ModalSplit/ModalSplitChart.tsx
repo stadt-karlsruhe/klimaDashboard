@@ -81,10 +81,22 @@ const colors = {
 }
 
 const nameColumnMapping = {
-  KFZ: 'Modal Split V.leistung - Kfz' | 'Verkehrsmittelwahl Kfz',
-  ÖPNV: 'Modal Split V.leistung - ÖV' | 'Verkehrsmittelwahl ÖV',
-  Fahrrad: 'Modal Split V.leistung - Fahrrad' | 'Verkehrsmittelwahl Fahrrad',
-  Fuß: 'Modal Split V.leistung - Fuß' | 'Verkehrsmittelwahl Fuß',
+  KFZ: {
+    verkehrsleistung: 'Modal Split V.leistung - Kfz',
+    wege: 'Verkehrsmittelwahl Kfz',
+  },
+  ÖPNV: {
+    verkehrsleistung: 'Modal Split V.leistung - ÖV',
+    wege: 'Verkehrsmittelwahl ÖV',
+  },
+  Fahrrad: {
+    verkehrsleistung: 'Modal Split V.leistung - Fahrrad',
+    wege: 'Verkehrsmittelwahl Fahrrad',
+  },
+  Fuß: {
+    verkehrsleistung: 'Modal Split V.leistung - Fuß',
+    wege: 'Verkehrsmittelwahl Fuß',
+  },
 }
 
 const data: IModalSplitData[] = ModalSplitData
@@ -146,7 +158,7 @@ export default function ModalSplitChart() {
         <div className="absolute -top-4 left-0 z-10 w-full md:-top-6 md:w-auto">
           <Toggle onChange={val => setMode(val as typeof mode)} />
         </div>
-        <div className="absolute left-[45%] top-[50%] z-10  font-bold text-black ">
+        <div className="absolute left-[45%] top-[50%] z-10 text-center font-bold text-black ">
           {mode === 'verkehrsleistung'
             ? yearData.Absolut + ' km'
             : yearData['Wege/Tag']}
@@ -241,7 +253,7 @@ export default function ModalSplitChart() {
                     }}
                   >
                     <AnimatedNumber decimals={1}>
-                      {yearData[nameColumnMapping[key]]}
+                      {yearData[nameColumnMapping[key][mode]]}
                     </AnimatedNumber>
                     %
                   </Title>
