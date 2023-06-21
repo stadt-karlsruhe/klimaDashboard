@@ -121,7 +121,7 @@ export default function BusContent() {
       )}
       {width >= 1800 && (
         <Slider
-          firstValueMobile={reducedData.length - 1} 
+          firstValue={reducedData.length - 1} 
           labels={reducedData.map(e => e.ZEIT.toString())}
           max={reducedData.length - 1}
           min={0}

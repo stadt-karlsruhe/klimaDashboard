@@ -164,7 +164,7 @@ export default function TrafficloadContent() {
       </div>
       <Slider
         defaultValue={[monthIndex]}
-        firstValueMobile={monthIndex} 
+        firstValue={monthIndex} 
         labels={[
           'JAN',
           'FEB',

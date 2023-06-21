@@ -74,7 +74,7 @@ export default function PassengerContent() {
           {width >= 1800 && (
             <Slider
               defaultValue={[years.length - 1]}
-              firstValueMobile={years.length - 1}
+              firstValue={years.length - 1}
               labels={years}
               max={years.length - 1}
               min={0}

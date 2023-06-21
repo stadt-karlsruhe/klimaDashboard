@@ -27,16 +27,16 @@ const sliderStyle = cva(
 export type SliderProps = SliderPrimitive.SliderProps &
   VariantProps<typeof sliderStyle> & {
     labels?: string[]
-    firstValueMobile?: number
+    firstValue?: number
   }
 
 export default function Slider({
-  firstValueMobile,
+  firstValue,
   labels,
   variant,
   ...props
 }: SliderProps) {
-  const [value, setValue] = useState<number>(firstValueMobile || 0)
+  const [value, setValue] = useState<number>(firstValue || 0)
 
   return (
     <div>

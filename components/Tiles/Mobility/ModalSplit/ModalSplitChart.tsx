@@ -275,7 +275,7 @@ export default function ModalSplitChart() {
       </div>
       <Slider
         defaultValue={[data.length - 1]}
-        firstValueMobile={data.length - 1}
+        firstValue={data.length - 1}
         labels={data.map(d => d.ZEIT)}
         max={data.length - 1}
         min={0}
