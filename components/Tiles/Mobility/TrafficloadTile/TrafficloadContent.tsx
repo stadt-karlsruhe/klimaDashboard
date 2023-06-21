@@ -47,7 +47,7 @@ function Toggle({ onChange }: { onChange: (_val: string) => void }) {
 }
 
 export default function TrafficloadContent() {
-  const [monthIndex, setMonthIndex] = useState(4)
+  const [monthIndex, setMonthIndex] = useState(new Date().getMonth() - 1)
   const [mode, setMode] = useState<'2013' | '2019' | 'current'>('current')
 
   const [mobileActive, setMobileActive] = useState<
@@ -164,7 +164,7 @@ export default function TrafficloadContent() {
       </div>
       <Slider
         defaultValue={[monthIndex]}
-        firstValueMobile={4} // MONAT MAI NUR FÜR DEMO
+        firstValueMobile={monthIndex} 
         labels={[
           'JAN',
           'FEB',
