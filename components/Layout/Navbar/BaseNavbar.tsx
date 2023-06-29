@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import StairStepBackground from '../StairStepBackground'
-import MSLogo from '@/assets/logos/stadtlogo-muenster.png'
+import KALogo from '@/assets/logos/logo_karlsruhe.svg'
 import Link from 'next/link'
 import Collapsible from '../../Elements/Collapsible'
 import Container from '../Container'
@@ -9,6 +9,7 @@ import {
   BuildingIcon,
   EnergyIcon,
   MuensterIcon,
+  // KaIcon,
 } from '@/components/Icons'
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import Title from '@/components/Elements/Title'
@@ -17,7 +18,7 @@ import { Spacer } from '@/components/Elements/Spacer'
 
 const links: LinkProps[] = [
   {
-    title: 'Klima in Münster',
+    title: 'Klima in Karlsruhe',
     icon: MuensterIcon,
     link: '/klima',
     hover: 'climate',
@@ -57,9 +58,9 @@ export default function BaseNavbar({
     <div className="pt-8">
       <div className="container relative z-10 mx-auto translate-y-1/2 px-4 md:px-12">
         <Image
-          alt="Logo der Stadt Münster"
+          alt="Logo der Stadt Karlsruhe"
           className="ml-auto h-12 w-auto"
-          src={MSLogo}
+          src={KALogo}
         />
       </div>
       <StairStepBackground variant={variant}>
@@ -85,7 +86,7 @@ export default function BaseNavbar({
                 as="h2"
                 variant={variant === 'overlay' ? 'inverse' : 'primary'}
               >
-                Klimadashboard Münster
+                Klimadashboard Karlsruhe
               </Title>
             </Link>
             <div className="flex items-center justify-between">

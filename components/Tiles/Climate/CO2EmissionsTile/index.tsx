@@ -13,9 +13,9 @@ export default async function CO2EmissionsTile() {
   return (
     <ClimateTile
       dataRetrieval="02.03.2023"
-      dataSource="Stadt Münster - Stabsstelle Klima"
+      dataSource="Stadt Karlsruhe - Stabsstelle Klima"
       embedId="climate-co2"
-      subtitle="So viel wird in Münster ausgestoßen"
+      subtitle="So viel wird in Karlsruhe ausgestoßen"
       title={
         <>
           CO<sub>2</sub>

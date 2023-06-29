@@ -22,12 +22,12 @@ export default function SectionTitle({
 }: VariantProps<typeof sectionHeaderStyle> & {
   large?: boolean
 }) {
-  let title = 'Münster'
+  let title = 'Karlsruhe'
   let Icon: ((_: SVGProps<SVGSVGElement>) => JSX.Element) | undefined =
     MuensterIcon
 
   if (variant === 'climate') {
-    title = 'Klima in Münster'
+    title = 'Klima in Karlsruhe'
   }
   if (variant === 'mobility') {
     title = 'Mobilität'
