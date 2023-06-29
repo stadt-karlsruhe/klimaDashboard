@@ -1,4 +1,6 @@
-# Klimadashboard Münster
+# Klimadashboard
+Clone of 
+## Klimadashboard Münster
 
 This is the Klimadashboard Münster. It provides real time information about the climate footprint for the city of [Münster](https://en.wikipedia.org/wiki/M%C3%BCnster). The application displays the data using different charts and a tile-based layout with separate pages for each category. The data is sourced from various providers, including the Open Data Portal of the City of Münster, the German Weather Service (DWD), BrightSky, and other data providers.
 
