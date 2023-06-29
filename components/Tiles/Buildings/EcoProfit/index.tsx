@@ -29,30 +29,31 @@ export default function EcoProfitTile() {
       dataSource="Stadt Münster"
       embedId={'building-ecoProfit'}
     >
-      <Title as={'h1'} variant={'building'}>
+      <Title as={'h1'} font={'normal'} variant={'building'}>
         <AnimatedNumber>{companiesTotal}</AnimatedNumber> Unternehmen
       </Title>
       <Spacer />
       <Title as="subtitle">
-        Haben bereits am Ökoprofit-Projekt teilgenommen und gemeinsam{' '}
+        haben bereits am Ökoprofit-Projekt teilgenommen und gemeinsam{' '}
         <span className="text-buildings">
-          <AnimatedNumber decimals={1}>{savingsEuro}</AnimatedNumber> Mio Euro
+          <AnimatedNumber decimals={1}>{savingsEuro}</AnimatedNumber> Millionen
+          Euro
         </span>{' '}
         und{' '}
         <span className="text-buildings">
-          <AnimatedNumber>{savingsCO2}</AnimatedNumber> t CO2
+          <AnimatedNumber>{savingsCO2}</AnimatedNumber> Tonnen CO<sub>2</sub>
         </span>{' '}
         eingespart.
       </Title>
       <Spacer size={'xl'} />
-      <Title as={'h1'} variant={'building'}>
+      <Title as={'h1'} font={'normal'} variant={'building'}>
         <AnimatedNumber>{companiesStartupConsulting}</AnimatedNumber>{' '}
         Unternehmen
       </Title>
       <Spacer />
       <Title as="subtitle">
-        Haben zudem bereits die &quot;Startberatung Energieeffizienz&quot; in
-        Anspruch genommen.
+        haben bereits die „Startberatung Energieeffizienz“ genutzt und
+        Maßnahmen zur Energieeinsparung entwickelt.
       </Title>
     </BuildingTile>
   )

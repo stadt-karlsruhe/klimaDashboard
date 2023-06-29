@@ -1,7 +1,6 @@
 'use client'
 
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
 import { MuellautoAbgas, MuellautoStrom } from '@/components/Icons'
 import MobileSlider from '@/components/Inputs/MobileSlider'
@@ -21,7 +20,7 @@ type AwmDatatType = {
 export default function AWMContent() {
   // const { electroCount, combustionCount } = useBusData()
   const { width } = useWindowSize()
-  const [yearIndex, setYearIndex] = useState(0)
+  const [yearIndex, setYearIndex] = useState(2)
 
   const [combustionCount, setCombustionCount] = useState(0)
   const [electroCount, setElectroCount] = useState(0)
@@ -57,7 +56,7 @@ export default function AWMContent() {
           </AnimatedNumber>
         </div>
       </div>
-      <div className="flex h-[390px] w-full items-end rounded bg-white p-4">
+      <div className="flex h-[260px] xs:h-[370px] md:h-[300px] lg:h-[460px] xl:h-[370px] 2xl:h-[400px]  w-full items-end rounded bg-white p-4">
         <div
           className="flex-none transition-all"
           style={{
@@ -74,7 +73,8 @@ export default function AWMContent() {
       </div>
       {width < 1800 && (
         <MobileSlider
-          defaultValue={[0]}
+          defaultValue={[yearIndex]}
+          firstValueMobile={data.length - 1}
           labels={data.map(e => e.ZEIT.toString())}
           max={data.length - 1}
           min={0}
@@ -84,7 +84,8 @@ export default function AWMContent() {
       )}
       {width >= 1800 && (
         <Slider
-          defaultValue={[0]}
+          defaultValue={[yearIndex]}
+          firstValueMobile={data.length - 1}
           labels={data.map(e => e.ZEIT.toString())}
           max={data.length - 1}
           min={0}
@@ -92,12 +93,6 @@ export default function AWMContent() {
           variant={'mobility'}
         />
       )}
-      <Spacer />
-      <Title as="h5">
-        Über 230 Fahrzeuge setzen die awm ein - ein stattlicher Fuhrpark, der
-        kosequent und Schritt für Schritt auf Erdgas- oder Elektroantrieb
-        umgestellt wird.
-      </Title>
     </div>
   )
 }

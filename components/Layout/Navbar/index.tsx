@@ -12,12 +12,20 @@ import SectionTitle from '../SectionTitle'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const routeToType: {
-  [key: string]: 'climate' | 'mobility' | 'energy' | 'building'
+  [key: string]:
+    | 'climate'
+    | 'mobility'
+    | 'energy'
+    | 'building'
+    | 'impressum'
+    | 'datenschutz'
 } = {
   klima: 'climate',
   mobilitaet: 'mobility',
   energie: 'energy',
   gebaeude: 'building',
+  impressum: 'impressum',
+  datenschutz: 'datenschutz',
 }
 
 export default function Navbar() {
@@ -30,6 +38,7 @@ export default function Navbar() {
   }
 
   const isIndexPage = pathname === '/'
+  const [_, route] = pathname?.split('/')
 
   const ActionComponent = isIndexPage ? (
     <Button
@@ -40,27 +49,28 @@ export default function Navbar() {
       <Title as="h5">So helfen Daten dem Klima</Title>
     </Button>
   ) : (
-    <Back />
+    <Back
+      variant={
+        ['impressum', 'datenschutz'].includes(route) ? 'inverse' : 'primary'
+      }
+    />
   )
 
   const InfoText = (
     <div className="lg:w-2/3 2xl:w-1/3">
       <Title as={'h5'} variant={'inverse'}>
-        Wo steht die Stadt Münster auf ihrem Weg zur Klimaneutralität? Wie
-        erkennen wir Fortschritte im kommunalen Klimaschutz und worin genau
-        zeigen sich die Folgen des Klimawandels, die wir schon jetzt in Münster
-        spüren? Antworten auf diese Fragen zu finden, ist wichtig, denn sie
-        können die Basis bilden, auf deren Grundlage wichtige Weichenstellungen
-        im Klimaschutz und in der Klimafolgenanpassung entschieden werden. Das
-        Klimadashboard zeigt den aktuellen Datenstand zu verschiedenen
-        Indikatoren im Klimaschutz in der Klimaanpassung und schafft so einen
-        Beitrag für mehr Transparenz in der gesamtstädtischen Klimaarbeit.
-        Manche Daten, die für obenstehenden Fragen spannend sind, stehen heute
-        noch nicht zu Verfügung. Dies kann sich jedoch ändern und so wird das
-        Klimadashboard wachsen und sich weiterentwickeln. Entwickelt wurde das
-        Klimadashboard von Smart City und der Stabstelle Klima der Stadt Münster
-        in Zusammenarbeit mit den Stadtwerken Münster und der
-        Wirtschaftsförderung Münster.
+        Wo steht Münster auf dem Weg zur Klimaneutralität? Und wo zeigen sich
+        die Folgen des Klimawandels in Münster schon jetzt? Das Klimadashboard
+        zeigt den aktuellen Datenstand zu verschiedenen Indikatoren von
+        Klimaschutz und Anpassung an die Folgen des Klimawandels und schafft so
+        mehr Transparenz in der gesamtstädtischen Klimaarbeit. Entwickelt wurde
+        das Klimadashboard von der Stabsstelle Smart City und der Stabsstelle
+        Klima der Stadt Münster mit Unterstützung von den Stadtwerken Münster
+        und der Wirtschaftsförderung Münster.
+        Wir arbeiten stetig daran, die Verfügbarkeit der Daten zu verbessern.
+        Das Klimadashboard wird im Rahmen des Förderprogramms „Modellprojekte
+        Smart Cities“ aus Mitteln des Bundesministeriums für Wohnen,
+        Stadtentwicklung und Bauwesen (BMWSB) gefördert.
       </Title>
     </div>
   )
@@ -106,22 +116,34 @@ export default function Navbar() {
     )
   }
 
-  const [_, route] = pathname?.split('/')
-
-  if (['klima', 'energie', 'mobilitaet', 'gebaeude'].includes(route)) {
+  if (
+    [
+      'klima',
+      'energie',
+      'mobilitaet',
+      'gebaeude',
+      'impressum',
+      'datenschutz',
+    ].includes(route)
+  ) {
     const sectionText: Record<string, string> = {
       klima:
-        'Schon jetzt sind die Auswirkungen der Klimakrise in Münster nicht nur spür- sondern auch messbar. Münster will klimaneutral und klimaangepasst werden und ihrer Verantwortung für ein „gutes Morgen“ gerecht werden. Dafür braucht es die gesamte Stadtgesellschaft!',
+        'Die Auswirkungen des Klimawandels in Münster sind spür- und messbar. Münster will klimaneutral und klimaangepasst und so der Verantwortung für ein „gutes Morgen“ gerecht werden. Dafür braucht es die gesamte Stadtgesellschaft!',
       energie:
-        'Egal ob Zuhause, im Unternehmen oder als Kommune, diese Grundsätze liegen einer erfolgreichen Energiewende zugrunde: Die Vermeidung von Energieverbrauch hat oberste Priorität. Der nicht-vermeidbare Energiebedarf wird mit effizienter Technik verringert. Der dann noch verbleibende Energiebedarf wird durch erneuerbare Energieträger gedeckt.',
+        'Egal ob Zuhause, im Unternehmen oder als Kommune, diese Grundsätze sind die Bausteine einer erfolgreichen Energiewende: Die Vermeidung von Energieverbrauch hat oberste Priorität. Der nicht-vermeidbare Energiebedarf muss mit effizienter Technik verringert werden. Der dann noch verbleibende Energiebedarf muss mittelfristig komplett durch erneuerbare Energieträger gedeckt werden.',
       mobilitaet:
-        'Das Ziel einer funktionierenden, klimafreundlichen Mobilität stellt eine wachsende Stadt wie Münster vor eine große Herausforderung. Wenn die gesamte Stadtgesellschaft bereit ist, neue Wege zu gehen, kann sie gemeistert werden.',
+        'Das Ziel einer funktionierenden, klimafreundlichen Mobilität stellt eine wachsende Stadt wie Münster vor eine große Herausforderung. Wenn die gesamte Stadtgesellschaft bereit ist, neue Wege zu gehen, kann diese Herausforderung gemeistert werden.',
       gebaeude:
-        'Für das Ziel einer klimaneutralen und klimaangepassten Stadt kann die Rolle von Gebäuden kaum überschätzt werden. Nicht nur das Einsparpotential von CO2 ist in diesem Bereich besonders hoch. Auch können Gebäudeeigentümer:innen durch gezielte Maßnahmen Energiekosten sparen und ihr Gebäude vor Extremwetter schützen.',
+        'Für das Ziel einer klimaneutralen und klimaangepassten Stadt kann die Rolle der Gebäude in Münster kaum hoch genug eingeschätzt werden. Nicht nur das Einsparpotential von CO₂ ist in diesem Bereich besonders hoch. Auch können Gebäudeeigentümer*innen durch gezielte Maßnahmen Energiekosten sparen und ihr Gebäude vor Extremwetter schützen.',
     }
 
     return (
-      <BaseNavbar actionComponent={ActionComponent}>
+      <BaseNavbar
+        actionComponent={ActionComponent}
+        variant={
+          ['impressum', 'datenschutz'].includes(route) ? 'overlay' : 'primary'
+        }
+      >
         <div className="flex flex-col gap-2 lg:flex-row lg:gap-0">
           <div className="flex-1">
             <Title as="h5" variant="primary">

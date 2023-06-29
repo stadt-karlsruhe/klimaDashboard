@@ -2,14 +2,21 @@
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    screens: {
+      'xs' : '540px',
+      'md' : '768px',
+      'lg' : '1024px',
+      'xl' : '1440px',
+      '2xl': '1920px',
+    },
     extend: {
       container: {
         screens: {
+          'lg': '1024px',
+          'xl': '1440px',
+          // 'xl' : '1024px',
           '2xl': '1920px',
         },
-      },
-      borderRadius: {
-        KD: '3rem',
       },
       colors: {
         primary: {
@@ -18,7 +25,7 @@ module.exports = {
         },
         secondary: {
           DEFAULT: '#aab315',
-          light: '#fbfbf3'
+          light: '#fbfbf3',
         },
         climate: {
           DEFAULT: '#14b3d9',

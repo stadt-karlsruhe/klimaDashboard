@@ -1,10 +1,12 @@
+import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
 import EnergyTile from '../EnergyTile'
 
 // @ts-ignore
 import PVData from '@/assets/data/bestand-pv-anlagen.csv'
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import { format } from 'date-fns'
+import { PvIcon } from '@/components/Icons'
+import ProgressBar from '@/components/Charts/Progress/ProgressBar'
 
 interface PVDataType {
   ZEIT: string
@@ -19,28 +21,24 @@ export default function PhotovoltTile() {
 
   return (
     <EnergyTile
-      dataRetrieval={format(new Date(data.ZEIT), 'dd.MM.yyyy')}
+      dataRetrieval="06.06.2023"
       dataSource={'Marktstammdatenregister'}
       embedId="energy-PV"
-      live
       title={
         <>
-          <AnimatedNumber className="font-medium">
-            {data.Nettonennleistung / 1000}
-          </AnimatedNumber>{' '}
-          MW
+          <AnimatedNumber>{data.Bruttoleistung / 1000}</AnimatedNumber> MWp
         </>
       }
     >
       <div>
         <Title as={'subtitle'}>
-          Haben die Müsteraner:innen bereits mit{' '}
+          haben die Münsteraner*innen bereits mit{' '}
           <span className="text-energy">
             <AnimatedNumber>{data.AnzahlAnlagen}</AnimatedNumber> PV-Anlagen
           </span>{' '}
-          in Münster produziert.
+          in Münster installiert.
         </Title>
-        {/* <div className="mt-8 flex items-center justify-between gap-8">
+        <div className="mt-8 flex items-center justify-between gap-8">
           <PvIcon className="w-40" />
           <div className="w-full flex-1">
             <div className="flex  items-center justify-between">
@@ -49,7 +47,7 @@ export default function PhotovoltTile() {
                   Bereits installiert
                 </Title>
                 <Title as="h4" variant={'energy'}>
-                  5%
+                  {((data.Bruttoleistung / 1000 / 2400) * 100).toFixed(0)}%
                 </Title>
               </div>
               <div className="flex flex-col items-end">
@@ -57,12 +55,16 @@ export default function PhotovoltTile() {
                   Angestrebtes Ziel bis 2030
                 </Title>
                 <Title as="h4" variant={'primary'}>
-                  2.500 MWp
+                  2.400 MWp
                 </Title>
               </div>
             </div>
             <Spacer size={'sm'} />
-            <ProgressBar progress={5} variant="energy" />
+            <ProgressBar
+              progress={(data.Bruttoleistung / 1000 / 2400) * 100}
+              variant="energy"
+            />
+            {/*
             <Spacer size={'sm'} />
             <Slider
               defaultValue={[0]}
@@ -70,9 +72,9 @@ export default function PhotovoltTile() {
               max={4}
               min={0}
               variant={'energy'}
-            />
+            />*/}
           </div>
-        </div> */}
+        </div>
       </div>
     </EnergyTile>
   )

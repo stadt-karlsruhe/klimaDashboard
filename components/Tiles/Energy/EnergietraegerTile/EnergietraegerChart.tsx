@@ -17,7 +17,7 @@ import { useWindowSize } from 'react-use'
 type StromDataType = {
   Jahr: number
   'GUD (Erdgas)': number
-  'reg. Bezug (Bundesmix)': number
+  'Stromeinkauf (Bundesmix)': number
   Windkraft: number
   'Anteil EE (%)': number
   'PV,Biogas': number
@@ -29,14 +29,14 @@ type StromDataType = {
 }
 
 export default function EnergietraegerChart() {
-  const [yearIndex, setYearIndex] = useState(0)
-
   const [mode, setMode] = useState<'stromerzeugung' | 'stromemissionen'>(
     'stromerzeugung',
   )
 
   const data: StromDataType[] =
     mode === 'stromerzeugung' ? StromerzeugungBereitstellung : Stromemissionen
+
+  const [yearIndex, setYearIndex] = useState(data.length - 1)
 
   const unit = mode === 'stromerzeugung' ? 'MWh' : 't'
 
@@ -58,7 +58,7 @@ export default function EnergietraegerChart() {
             {
               element: (
                 <Title as="h5" className="2xl:mx-auto">
-                  CO₂ pro Energieträger
+                  CO₂ pro Quelle
                 </Title>
               ),
               value: 'co2',
@@ -149,7 +149,7 @@ export default function EnergietraegerChart() {
                           'Emissionen ges.',
                           'Anteil EE an Gesamtemissionen (%)',
                           'Anteil EE (%)',
-                          'reg. Bezug (Bundesmix)',
+                          'Stromeinkauf (Bundesmix)',
                         ].includes(k),
                     )
                     .map(key => ({
@@ -164,7 +164,8 @@ export default function EnergietraegerChart() {
         <Spacer size={'xs'} />
         {width < 1800 && (
           <MobileSlider
-            defaultValue={[0]}
+            defaultValue={[data.length - 1]}
+            firstValueMobile={data.length - 1}
             labels={data.map(e => e.Jahr.toString())}
             max={data.length - 1}
             min={0}
@@ -174,7 +175,8 @@ export default function EnergietraegerChart() {
         )}
         {width >= 1800 && (
           <Slider
-            defaultValue={[0]}
+            defaultValue={[data.length - 1]}
+            firstValueMobile={data.length - 1}
             labels={data.map(e => e.Jahr.toString())}
             max={data.length - 1}
             min={0}

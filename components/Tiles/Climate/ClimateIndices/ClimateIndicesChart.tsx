@@ -3,7 +3,7 @@
 import { ReactECharts } from '@/components/Charts/ReactECharts'
 import climateIndicesData from '@/assets/data/climate_indices.json'
 import { LineSeriesOption } from 'echarts'
-import { differenceInYears, parse } from 'date-fns'
+import { differenceInYears, getYear, parse } from 'date-fns'
 import Switch from '@/components/Inputs/Switch'
 import { Eis, Frost, Heiss, Sommer, Tropen } from '@/components/Icons'
 import Title from '@/components/Elements/Title'
@@ -35,8 +35,8 @@ type ClimateIndex = {
 const TIME_DELTA_IN_YEARS = 20
 
 const data = climateIndicesData as ClimateIndex[]
-const getSeries = (property: keyof ClimateIndex) =>
-  data
+const getSeries = (property: keyof ClimateIndex) => {
+  const arr = data
     .filter(
       e =>
         differenceInYears(
@@ -48,6 +48,19 @@ const getSeries = (property: keyof ClimateIndex) =>
       parse(e.timestamp, 'yyyy-MM-dd HH:mm:ssXXX', new Date()),
       e[property],
     ])
+    .reduce((acc: Record<string, number>, [timestamp, value]) => {
+      const year = getYear(timestamp as Date)
+
+      acc[year] = (acc[year] ?? 0) + (value as number)
+
+      return acc
+    }, {})
+
+  return Object.entries(arr).map(([year, value]) => [
+    `${year}-01-01T00:00:00.000Z`,
+    value,
+  ])
+}
 
 /**
  * All the indices that are on the chart
@@ -93,7 +106,7 @@ const indices: Record<
     },
   },
   frosttage: {
-    title: 'Frosttage (mind. < 0°C)',
+    title: 'Frosttage (Min. < 0°C)',
     seriesOption: {
       name: 'Frosttage',
       data: getSeries('frosttage'),
@@ -103,7 +116,7 @@ const indices: Record<
     icon: Frost,
   },
   eistage: {
-    title: 'Eistage (max. < 0°C)',
+    title: 'Eistage (Max. < 0°C)',
     icon: Eis,
     seriesOption: {
       name: 'Eistage',

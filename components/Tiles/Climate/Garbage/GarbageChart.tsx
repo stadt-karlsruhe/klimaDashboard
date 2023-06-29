@@ -56,7 +56,9 @@ const years = data.map(e => e.ZEIT.toString())
 export default function GarbageChart() {
   const { width } = useWindowSize()
 
-  const [yearIndex, setYearIndex] = useState(0)
+  const [yearIndex, setYearIndex] = useState(
+    years.length > 0 ? years.length - 1 : 0,
+  )
 
   return (
     <div className="flex h-full w-full flex-col-reverse items-center 2xl:flex-row">
@@ -127,7 +129,8 @@ export default function GarbageChart() {
           <div className="flex-1">
             {width < 1800 && (
               <MobileSlider
-                defaultValue={[yearIndex]}
+                defaultValue={[years.length - 1]}
+                firstValueMobile={years.length - 1}
                 labels={years}
                 max={years.length - 1}
                 min={0}
@@ -139,7 +142,8 @@ export default function GarbageChart() {
             )}
             {width >= 1800 && (
               <Slider
-                defaultValue={[yearIndex]}
+                defaultValue={[years.length - 1]}
+                firstValueMobile={years.length - 1}
                 labels={years}
                 max={years.length - 1}
                 min={0}

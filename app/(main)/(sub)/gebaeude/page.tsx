@@ -1,12 +1,7 @@
-import Columns from '@/components/Layout/Columns'
-import EcoProfitTile from '@/components/Tiles/Buildings/EcoProfit'
+import BuildingsView from '@/components/Views/BuildingsView'
+
+export const revalidate = 10
 
 export default function Climate() {
-  return (
-    <>
-      <Columns>
-        <EcoProfitTile />
-      </Columns>
-    </>
-  )
+  return <BuildingsView />
 }

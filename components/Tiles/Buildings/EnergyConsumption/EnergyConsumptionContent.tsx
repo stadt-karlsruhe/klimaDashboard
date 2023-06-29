@@ -10,7 +10,9 @@ import DesktopView from './DesktopView'
 import MobileView from './MobileView'
 
 const years = Array.from(
-  new Set(stromData.map(d => new Date(d.Datum).getFullYear())),
+  new Set(
+    stromData.map(d => new Date(d.Datum).getFullYear()).filter(e => e > 2018),
+  ),
 ).sort((a, b) => a - b)
 
 export default function EnergyConsumptionContent() {
@@ -45,6 +47,7 @@ export default function EnergyConsumptionContent() {
       </div>
       <Slider
         defaultValue={[yearIndex]}
+        firstValueMobile={years.length - 1}
         labels={years.map(e => e.toString())}
         max={years.length - 1}
         min={0}

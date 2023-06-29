@@ -3,7 +3,7 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
-import { BusCombustion, BusElectro } from '@/components/Icons'
+import { EBus, EBusBrennstoff } from '@/components/Icons'
 // @ts-ignore
 import BusData from '@/assets/data/stadtwerke-bus-fahrzeuge.csv'
 import { useWindowSize } from 'react-use'
@@ -44,9 +44,10 @@ export default function BusContent() {
         return
       }
       currentYear = item.ZEIT.toString().substring(0, 4)
-      const row: BusDataType | undefined = data.findLast(
-        item => item.ZEIT.toString().substring(0, 4) === currentYear,
-      )
+      const row: BusDataType | undefined = data
+        .slice()
+        .reverse()
+        .find(item => item.ZEIT.toString().substring(0, 4) === currentYear)
       if (
         row &&
         row['Fahrzeuge SWMS'] &&
@@ -56,6 +57,7 @@ export default function BusContent() {
       }
     })
     setReducedData(reducedDataLocal)
+    setYearIndex(reducedDataLocal.length - 1)
   }, [data])
 
   useEffect(() => {
@@ -91,7 +93,7 @@ export default function BusContent() {
           </AnimatedNumber>
         </div>
       </div>
-      <div className="flex h-[280px] w-full items-end rounded bg-white p-4">
+      <div className="flex h-[150px] xs:h-[240px] md:h-[200px] lg:h-[290px] w-full items-end gap-8 rounded bg-white p-4">
         <div
           className="flex-none transition-all"
           style={{
@@ -100,39 +102,39 @@ export default function BusContent() {
             }%`,
           }}
         >
-          <BusCombustion className="w-full" />
+          <EBusBrennstoff className="w-full" />
         </div>
         <div className="flex-1">
-          <BusElectro className="w-full" />
+          <EBus className="w-full" />
         </div>
       </div>
       {width < 1800 && (
         <MobileSlider
-          defaultValue={[0]}
+          firstValueMobile={3} // ONLY FOR DEMO
           labels={reducedData.map(e => e.ZEIT.toString())}
           max={reducedData.length - 1}
           min={0}
           onValueChange={([index]) => setYearIndex(index)}
+          value={[yearIndex]}
           variant={'mobility'}
         />
       )}
       {width >= 1800 && (
         <Slider
-          defaultValue={[0]}
+          firstValueMobile={3} //ONLY FOR DEMO
           labels={reducedData.map(e => e.ZEIT.toString())}
           max={reducedData.length - 1}
           min={0}
           onValueChange={([index]) => setYearIndex(index)}
+          value={[yearIndex]}
           variant={'mobility'}
         />
       )}
       <Spacer />
       <Title as="h5">
-        Busfahren ist Klimaschutz. Damit die Umweltbilanz des Nahverkehrs noch
-        besser wird, setzen wir immer stärker auf Elektrobusse mit Ökostrom im
-        Tank. In Münster sind die leisen und abgasfreien Busse bereits seit 2015
-        unterwegs und gehören längst zum Stadtbild. Und jedes Jahr werden es
-        mehr! Bis 2029 soll unsere Busflotte komplett elektrisch fahren.
+        Busfahren ist Klimaschutz. Damit die Umweltbilanz noch besser wird,
+        setzen die Stadtwerke auf Elektrobusse mit Ökostrom. Bis 2029 soll die
+        Stadtwerke-Flotte komplett elektrisch fahren.
       </Title>
     </div>
   )

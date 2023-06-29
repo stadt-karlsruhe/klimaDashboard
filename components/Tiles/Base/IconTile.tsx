@@ -66,22 +66,23 @@ export default async function IconTile({
     <BaseTile
       embedId={embedId}
       footerCenterElement={live ? <LiveBadge variant={variant} /> : undefined}
+      isFullWidth={data?.full_width}
       moreInfo={data?.details}
       source={data?.data_url}
       variant={variant}
     >
       <div className="px-2.5">
-        <div className="flex w-full justify-end md:hidden">
+        <div className="absolute right-16 top-16 hidden lg:block">
           <Icon
             className={cx(
-              'h-[29px] w-auto flex-shrink-0 opacity-40  md:h-[50px]',
+              'h-[29px] w-auto flex-shrink-0 opacity-40 md:h-[50px]',
               iconTileTitleStyle({ variant }),
             )}
           />
         </div>
         {title && (
           <div className="relative flex items-center justify-between">
-            <div className="flex flex-wrap items-center justify-start gap-x-4">
+            <div className="flex flex-wrap items-center justify-start gap-x-4 lg:max-w-[87%]">
               <Title
                 as={'h1'}
                 className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
@@ -92,7 +93,7 @@ export default async function IconTile({
               {subtitle && (
                 <Title
                   as={'subtitle'}
-                  className="2xl:max-w-[60%]"
+                  className="2xl:max-w-[85%]"
                   color={'dark'}
                 >
                   {subtitle}
@@ -100,12 +101,12 @@ export default async function IconTile({
               )}
             </div>
 
-            <Icon
+            {/* <Icon
               className={cx(
-                'absolute right-0 top-0 hidden h-[29px] w-auto flex-shrink-0 opacity-40 md:block md:h-[50px]',
+                'absolute right-0 top-0 hidden h-[29px] w-auto flex-shrink-0 opacity-40 md:h-[50px] 2xl:block',
                 iconTileTitleStyle({ variant }),
               )}
-            />
+            /> */}
           </div>
         )}
         {(title || subtitle) && <Spacer />}
@@ -113,7 +114,7 @@ export default async function IconTile({
       <>
         {!title && !subtitle && (
           <div className={cx('relative', iconTileTitleStyle({ variant }))}>
-            <Icon className=" absolute right-0 top-0 h-[50px] w-auto opacity-40" />
+            <Icon className=" absolute right-0 top-0 hidden h-[50px] w-auto opacity-40 2xl:block" />
           </div>
         )}
       </>

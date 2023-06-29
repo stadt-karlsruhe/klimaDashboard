@@ -28,10 +28,10 @@ const climateYears = data.reduce((a: AvgTempData, o) => {
 export default function ClimateDevelopmentTile() {
   return (
     <ClimateTile
-      dataSource="DWD"
+      dataSource="Deutscher Wetterdienst"
       embedId="climate-development"
       live
-      subtitle={'Temperaturentwicklung Münsters seit 1982'}
+      subtitle={'Temperaturabweichungen von den langjährigen Monatsmitteln vor 1900'}
       title={'Klima'}
     >
       <div className="h-[316px] w-full md:h-[528px]">

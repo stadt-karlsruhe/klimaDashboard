@@ -8,11 +8,13 @@ import WeatherTile from '@/components/Tiles/Climate/WeatherTile'
 import EnergietraegerTile from '@/components/Tiles/Energy/EnergietraegerTile'
 import PhotovoltTile from '@/components/Tiles/Energy/PhotovoltTile'
 import WindEnergyTile from '@/components/Tiles/Energy/WindEnergyTile'
+import PVAnlagenTile from '@/components/Tiles/Energy/PVAnlagenTile'
 import AWMTile from '@/components/Tiles/Mobility/AWM'
 import BicycleChartTile from '@/components/Tiles/Mobility/Bicycle/BicycleChartTile'
 import StadtradelnTile from '@/components/Tiles/Mobility/Bicycle/Stadtradeln'
 import BusTile from '@/components/Tiles/Mobility/Bus'
 import ModalSplitTile from '@/components/Tiles/Mobility/ModalSplit'
+import TrafficloadTile from '@/components/Tiles/Mobility/TrafficloadTile'
 import SuccessStoryTile, {
   SuccessStoryTileProps,
 } from '@/components/Tiles/SuccessStory'
@@ -26,6 +28,7 @@ import {
   TileTypePrefix,
 } from '@/types/tile'
 import { ID } from '@directus/sdk'
+import { getSuccessStoryData } from '@/lib/api/getSuccessStoryData'
 
 type TileTypeSuffix =
   | ClimateTypes
@@ -48,6 +51,12 @@ interface TileFactoryProps {
   surveyData?: SurveyTileProps
 }
 
+/**
+ * The TileFactory is a helper function to create tiles dynamically.
+ *
+ * @param param TileFactoryProps
+ * @returns Tile
+ */
 export default async function TileFactory({
   type,
   ...props
@@ -64,27 +73,35 @@ export default async function TileFactory({
     return <SurveyTile {...data} />
   }
 
+  if (type.startsWith('successStory')) {
+    const [_, id] = type.split('successStory-')
+    if (props.successStoryData) {
+      return <SuccessStoryTile {...props.successStoryData} />
+    }
+    const data = await getSuccessStoryData(id)
+    if (!data) {
+      return null
+    }
+    return <SuccessStoryTile {...data} />
+  }
+
   switch (type) {
     // ---- WEATHER ----
     case 'climate-weather':
       return <WeatherTile />
     case 'climate-co2':
-      // @ts-expect-error Server Component
       return <CO2EmissionsTile />
     case 'climate-indices':
-      // @ts-expect-error Server Component
       return <ClimateIndicesTile />
     case 'climate-development':
       return <ClimateDevelopmentTile />
     case 'climate-garbage':
-      // @ts-expect-error Server Component
       return <GarbageTile />
 
     // ---- BUILDINGS ----
     case 'building-ecoProfit':
       return <EcoProfitTile />
     case 'building-energyConsumption':
-      // @ts-expect-error Server Component
       return <EnergyComsumptionTile />
 
     // ---- ENERGY ----
@@ -92,30 +109,24 @@ export default async function TileFactory({
       return <PhotovoltTile />
     case 'energy-wind':
       return <WindEnergyTile />
+    case 'energy-PVAnlagen':
+      return <PVAnlagenTile />
     case 'energy-energietraeger':
-      // @ts-expect-error Server Component
       return <EnergietraegerTile />
 
     // ---- MOBILITY ----
     case 'mobility-bicycle':
       return <BicycleChartTile />
     case 'mobility-stadtradeln':
-      // @ts-expect-error Server Component
       return <StadtradelnTile />
     case 'mobility-bus':
       return <BusTile />
     case 'mobility-modalSplit':
-      // @ts-expect-error Server Component
       return <ModalSplitTile />
+    case 'mobility-trafficload':
+      return <TrafficloadTile />
     case 'mobility-awm':
       return <AWMTile />
-
-    // ---- SUCCESS-STORY ----
-    case 'successStory':
-      if (!props.successStoryData) {
-        return null
-      }
-      return <SuccessStoryTile {...props.successStoryData} />
 
     default:
       return null
