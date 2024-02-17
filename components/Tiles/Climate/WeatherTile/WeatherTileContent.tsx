@@ -12,7 +12,7 @@ import Slider from '@/components/Inputs/Slider'
 export default function WeatherTileContent() {
   const [timestamp, setTimestamp] = useState(new Date())
 
-  const weather = useWeather({ lat: 52, lng: 7.6 }, timestamp)
+  const weather = useWeather({ lat: 49, lng: 8.4 }, timestamp)
 
   const nextHours = new Array(6).fill(undefined).map((e, i) => {
     const date = new Date()
@@ -31,7 +31,7 @@ export default function WeatherTileContent() {
               <SunLarge className="h-20 text-primary md:h-36" />
             </span>
             <Title as={'h4'} className="my-4 w-1/3 md:w-3/4">
-              In Münster ist es gerade{' '}
+              In Karlsruhe ist es gerade{' '}
               <span className="text-climate">
                 {conditionMapping[weather?.condition]}
               </span>
